@@ -1,5 +1,10 @@
 #!/usr/bin/php
 <?php
+#
+# Add the following to crontab:
+# 0 */3 * * * cd /var/www/vhosts/tm3.org/standrew && ./get_reading.php
+#
+
 $today = date( 'Y/m/d' );
 
 # Fetch, for example, https://oca.org/readings/daily/2016/02/14/2
