@@ -72,7 +72,10 @@ function getreading() {
     $today = date( 'Y/m/d' );
 
     # Fetch, for example, https://oca.org/readings/daily/2016/02/14/2
-    $url = 'https://oca.org/readings/daily/' . $today . '/2';
+    $url = 'https://oca.org/readings/daily/' . $today . '/1';
+
+# TODO: On Sunday there are three readings, and the epistle is at '/2'
+# rather than '/1'.
 
     $context = [
       'http' => [
