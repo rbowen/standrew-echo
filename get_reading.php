@@ -35,7 +35,7 @@ $page = preg_replace( '/<.*?>/s', '', $page );
 $page = preg_replace( '/&\w+?;/', '', $page );
 
 $file_handle = fopen("today_reading.php", "w");
-$file_contents = "<?php\nfunction reading() {\n\n\$reading = \"$page\"\nreturn \$reading\n}\n?>\n\n";
+$file_contents = "<?php\nfunction reading() {\n\n\$reading = \"$page\";\nreturn \$reading;\n}\n?>\n\n";
 
 fwrite($file_handle, $file_contents);
 fclose($file_handle);
