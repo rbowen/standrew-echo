@@ -16,29 +16,36 @@ if ( $valid['success'] )  {
 
     if ( $query ) {
         $action = $query->request->intent->name;
+        $response = '';
 
         if ( $action == "GetSaint" ) {
             $response = getsaint();
         }
+
         elseif ( $action == "GetFast" ) {
             $response = getfast();
         }
+
         elseif ( $action == "GetReading" ) {
             $response = getreading();
-        } elseif ( $action = 'GetHelp' ) { # TODO Apparently there's a
-                                           # built-in for this.
-            $response = $help;
-        } else {
-            $response = $help;
         }
 
-        sendresponse( $response);
+        elseif ( $action = 'AMAZON.HelpIntent' ) {
+            sendresponse( $help, false );
+        } else {
+            sendresponse( $help, false );
+        }
+
+        if ( $response ) {
+            sendresponse( $response, true );
+        }
     } else {
-        sendresponse( $help );
+        sendresponse( $help, true );
     }
 
 } else {
     error_log( 'Request failed: ' . $valid['message'] );
+    // print $valid['message'];
     die();
 }
 
@@ -97,7 +104,7 @@ function getreading() {
 Format and return the response back to Alexa
 
 */
-function sendresponse( $response ) {
+function sendresponse( $response, $endsession = true ) {
 
     $response = array (
        "version" => '1.0',
@@ -113,7 +120,7 @@ function sendresponse( $response ) {
                    'content' => $response
              ),
 
-            'shouldEndSession' => 'true'
+            'shouldEndSession' => $endsession
         ),
     );
 
