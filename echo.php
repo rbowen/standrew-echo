@@ -7,9 +7,10 @@ $DEBUG = 1;
 $guid = '66acd610-159d-4881-bb04-b48f9452b98c';
 $userid = 'AFPPR46VI4HFCERSD2ENKTJBTCGHF6J6ERFIWCEI7GP4YDXFRBEJI';
 
-
 include('../validate-echo-request-php/valid_request.php');
 $valid = validate_request( $guid, $userid );
+
+$help = "Welcome to St. Andrew Orthodox Info. Ask me who todays saint is, whether today is a fast day, or for today's reading. What would you like to know?";
 
 if ( $valid['success'] )  {
 
