@@ -2,30 +2,43 @@
 
 $data = file_get_contents("php://input");
 $query = json_decode( $data );
-# error_log( print_r( $query, 1 ) );
+$DEBUG = 1;
 
-$help = "Ask me who todays saint is, or whether today is a fast day";
+$guid = '66acd610-159d-4881-bb04-b48f9452b98c';
+$userid = 'AFPPR46VI4HFCERSD2ENKTJBTCGHF6J6ERFIWCEI7GP4YDXFRBEJI';
 
-if ( $query ) {
-    $action = $query->request->intent->name;
 
-    if ( $action == "GetSaint" ) {
-        $response = getsaint();
-    }
-    elseif ( $action == "GetFast" ) {
-        $response = getfast();
-    }
-    elseif ( $action == "GetReading" ) {
-        $response = getreading();
-    } elseif ( $action = 'GetHelp' ) {
-        $response = $help;
+include('../validate-echo-request-php/valid_request.php');
+$valid = validate_request( $guid, $userid );
+
+if ( $valid['success'] )  {
+
+    if ( $query ) {
+        $action = $query->request->intent->name;
+
+        if ( $action == "GetSaint" ) {
+            $response = getsaint();
+        }
+        elseif ( $action == "GetFast" ) {
+            $response = getfast();
+        }
+        elseif ( $action == "GetReading" ) {
+            $response = getreading();
+        } elseif ( $action = 'GetHelp' ) { # TODO Apparently there's a
+                                           # built-in for this.
+            $response = $help;
+        } else {
+            $response = $help;
+        }
+
+        sendresponse( $response);
     } else {
-        $response = $help;
+        sendresponse( $help );
     }
 
-    sendresponse( $response);
 } else {
-    sendresponse( $help );
+    error_log( 'Request failed: ' . $valid['message'] );
+    die();
 }
 
 /*
@@ -105,6 +118,7 @@ function sendresponse( $response ) {
 
     echo json_encode($response);
 }
+
 
 ?>
 
