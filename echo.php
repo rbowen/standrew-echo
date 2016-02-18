@@ -2,7 +2,6 @@
 
 $data = file_get_contents("php://input");
 $query = json_decode( $data );
-$DEBUG = 1;
 
 $guid = '66acd610-159d-4881-bb04-b48f9452b98c';
 $userid = 'AFPPR46VI4HFCERSD2ENKTJBTCGHF6J6ERFIWCEI7GP4YDXFRBEJI';
